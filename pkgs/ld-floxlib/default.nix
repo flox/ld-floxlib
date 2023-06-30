@@ -19,7 +19,7 @@ stdenv.mkDerivation {
   buildInputs = [ ld_floxlib_libs ];
   makeFlags = [
     "PREFIX=$(out)"
-    "CFLAGS=-DLD_FLOXLIB_LIB='\"${ld_floxlib_libs}/lib\"'"
+    #"CFLAGS=-DLD_FLOXLIB_LIB='\"${ld_floxlib_libs}/lib\"'"
   ];
   meta.description = "ld.so hack allowing Nix binaries to impurely load RHEL system libraries as last resort";
 }
