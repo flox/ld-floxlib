@@ -24,6 +24,11 @@ static char name_buf[PATH_MAX];
 unsigned int
 la_version(unsigned int version)
 {
+#if 0
+    /*
+     * Legacy code that was useful in the past; can be deleted
+     * but keeping here for reference, at least for now.
+     */
     char *ld_audit = getenv("LD_AUDIT");
     char *ld_floxlib_out_path = getenv("LD_FLOXLIB_OUT_PATH");
     if (ld_floxlib_out_path == NULL)
@@ -65,6 +70,7 @@ la_version(unsigned int version)
         if (debug_ld_floxlib)
             fprintf(stderr, "DEBUG: getenv(LD_AUDIT) = %s\n", ld_audit);
     }
+#endif
     return version;
 }
 

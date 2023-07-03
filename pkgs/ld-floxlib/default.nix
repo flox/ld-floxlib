@@ -21,5 +21,14 @@ stdenv.mkDerivation {
     "PREFIX=$(out)"
     "CFLAGS=-DLD_FLOXLIB_LIB='\"${ld_floxlib_libs}/lib\"'"
   ];
+
+  # The ld-floxlib.so library only requires libc, which is guaranteed
+  # to either be already loaded or available by way of a default provided
+  # by the linker itself, so to avoid loading a different libc than the
+  # one already loaded we remove RPATH/RUNPATH from the shared library.
+  postFixup = ''
+    patchelf --remove-rpath $out/lib/ld-floxlib.so
+  '';
+
   meta.description = "ld.so hack allowing Nix binaries to impurely load RHEL system libraries as last resort";
 }
