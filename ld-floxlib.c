@@ -24,6 +24,13 @@ static char name_buf[PATH_MAX];
 unsigned int
 la_version(unsigned int version)
 {
+    return version;
+}
+
+void
+flox_hint(char *basename)
+{
+    fprintf(stderr, "DEBUG: looking for: %s\n", basename);
 #if 0
     /*
      * Legacy code that was useful in the past; can be deleted
@@ -71,7 +78,6 @@ la_version(unsigned int version)
             fprintf(stderr, "DEBUG: getenv(LD_AUDIT) = %s\n", ld_audit);
     }
 #endif
-    return version;
 }
 
 char *
@@ -123,6 +129,11 @@ la_objsearch(const char *name, uintptr_t *cookie, unsigned int flag)
                 return name_buf;
             }
         }
+
+        // Haven't found the library anywhere. Take this last opportunity
+        // to look up packages containing the requested library and print
+        // an informative hint for installing them to the current env.
+        flox_hint(basename);
     }
 
     return (char *) name;
